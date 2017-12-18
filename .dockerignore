@@ -1,0 +1,3 @@
+/data/postgres/*
+docker-compose.yml
+.gitignore
