@@ -19,5 +19,10 @@ services:
             - POSTGRES_USER=fooddude
             - POSTGRES_PASSWORD=12345
             - POSTGRES_DB=fooderator
+        ports:
+            - "5432:5432"
         volumes:
-            - ./data/postgres:/var/lib/postgresql/data
+            - postgres_data:/var/lib/postgresql/data
+volumes:
+    postgres_data:
+        external: true

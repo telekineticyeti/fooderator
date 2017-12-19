@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/telekineticyeti/fooderator/issues"
   },
-  "homepage": "https://github.com/telekineticyeti/fooderator#readme"
+  "homepage": "https://github.com/telekineticyeti/fooderator#readme",
+  "dependencies": {
+    "pg": "^7.4.0"
+  }
 }
