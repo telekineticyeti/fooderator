@@ -1,0 +1,81 @@
+//:::::::::::::::::::::::::
+//	Libraries
+//:::::::::::::::::::::::::
+@import "bourbon"
+@import "../node_modules/breakpoint-sass/stylesheets/breakpoint"
+
+
+//:::::::::::::::::::::::::
+//	Colors
+//:::::::::::::::::::::::::
+$navy				: #223c73
+$seafoam			: #77cac5
+$pink				: #d47eb0
+$purple				: #a984b8
+$yellow				: #f7ca6c
+$orange				: #f0ae3a
+$grey				: #e8ebf1
+
+
+//:::::::::::::::::::::::::
+//	BreakPoints
+//:::::::::::::::::::::::::
+$mobile					: 320px
+$mobileLandscape		: 480px
+$tablet					: 768px
+$desktop				: 992px
+$superdesktop			: 1200px
+$mobileOnly				: max-width 768px
+
+$landscape				: orientation landscape
+$iphone5landscape		: (min-width 568px) (orientation landscape)
+$iphone6				: min-width 370px
+$iphone6landscape		: (min-width 666px) (orientation landscape)
+$iphone6plus			: min-width 400px
+$iphone6pluslandscape	: (min-width 738px) (orientation landscape)
+$tabletlandscape		: (min-width 1024px) (orientation landscape)
+$mobileLandscapeOnly	: (max-width 738px) (orientation landscape)
+
+
+//:::::::::::::::::::::::::
+//	Mixin Tools
+//:::::::::::::::::::::::::
+
+// Disallow mouse/cursor selection of element or text
+=NoSelection
+	$prefixes: webkit moz ms khtml
+	@each $prefix in $prefixes
+		-#{$prefix}-user-select: none
+	transform: none
+
+// Override default list styling
+=ListReset
+	margin: 0
+	padding: 0
+	list-style-type: none
+
+// Add a box around an element for debugging position
+=dbg ($color :red)
+	outline: 1px dashed $color
+
+// Disable the default appearence of elements such as form
+// dropdowns and select boxes
+=NoAppearance
+	$prefixes: webkit moz
+	@each $prefix in $prefixes
+		-#{$prefix}-appearance: none
+	transform: none
+
+// Force 3D rendering, sometimes improving performance of CSS3 transitions
+=Force3D
+	$prefixes: webkit moz ms
+	@each $prefix in $prefixes
+		-#{$prefix}-transform: translate3d(0, 0, 0)
+	transform: translate3d(0, 0, 0)
+
+// Floated position clear
+=ClearFix
+	&:after
+		content: ''
+		display: table
+		clear: both

@@ -6,6 +6,7 @@ services:
             - ".:/usr/app"
         ports:
             - "8010:80"
+            - "8080:8080"
         environment:
             - DATABASE_URL=postgres://fooddude:12345@postgres/fooderator
         restart: always

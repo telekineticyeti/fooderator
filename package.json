@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "node-sass --watch sass -o public/css"
+    "gulp": "gulp"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,15 @@
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "moment": "^2.20.1",
-    "node-sass": "^4.7.2",
     "pg": "^7.4.0"
+  },
+  "devDependencies": {
+    "breakpoint-sass": "^2.7.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0",
+    "node-bourbon": "^4.2.8"
   }
 }
