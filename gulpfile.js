@@ -3,7 +3,7 @@ var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 
 var sass_options = {
-	outputStyle: 'compressed',
+	outputStyle: 'nested',
 	includePaths: [
 		require('node-bourbon').includePaths
 	]
