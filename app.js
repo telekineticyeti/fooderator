@@ -2,21 +2,39 @@ const pg = require('pg');
 const connection_string = process.env.DATABASE_URL;
 const client = new pg.Client(connection_string);
 
+const express = require('express');
+const app = express();
+const ejs = require('ejs');
+const Promise = require('bluebird');
+const moment = require('moment');
 
-(async () => {
-	await client.connect();
+
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
+
+app.listen(80, () => {
+	console.log('Listening on http://localhost:8010');
+});
+
+app.get('/', (req, res, next) => {
+	res.render('pages/home');
+});
+
+app.get('/add-meal', (req, res, next) => {
+	res.render('pages/add-a-meal');
+});
 
 
 	// var query = "INSERT INTO meals(name) values($1)", ['Satay Chicken'];
 
-	// var result = await client.query("CREATE TABLE IF NOT EXISTS test(id serial, name varchar(255))");
-	var result = await client.query("INSERT INTO meals(name) values($1)", ['Satay Chicken']);
+	// var result = await client.query("CREATE TABLE IF NOT EXISTS meals(id serial, name varchar(255), pending boolean DEFAULT false, added timestamp DEFAULT current_timestamp, updated timestamp)");
+	// var result = await client.query("INSERT INTO meals(name) values($1)", ['Satay Chicken']);
 
-	result.rows.forEach(row=>{
-	    console.log(row);
-	});
+	// result.rows.forEach(row=>{
+	//     console.log(row);
+	// });
 
-	await client.end();
+	// await client.end();
 
 	// let query = client.query("CREATE TABLE IF NOT EXISTS meals(id serial, name varchar(255), pending int(1) DEFAULT 0, added timestamp DEFAULT current_timestamp, updated timestamp)");
 
@@ -66,7 +84,6 @@ const client = new pg.Client(connection_string);
 
 	// });
 
-})();
 
 
 // router.put('/api/v1/todos/:todo_id', (req, res, next) => {

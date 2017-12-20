@@ -11,8 +11,7 @@ services:
         restart: always
         depends_on:
             - postgres
-        command:
-            - nodemon
+        command: ["nodemon", "-L"]
     postgres:
         image: postgres:9.6.6-alpine
         environment:

@@ -4,7 +4,8 @@
   "description": "Meal planner that helps you keep track of which meals you plan to make and which groceries you will need",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "node-sass --watch sass -o public/css"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,11 @@
   },
   "homepage": "https://github.com/telekineticyeti/fooderator#readme",
   "dependencies": {
+    "bluebird": "^3.5.1",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "moment": "^2.20.1",
+    "node-sass": "^4.7.2",
     "pg": "^7.4.0"
   }
 }
