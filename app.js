@@ -1,13 +1,12 @@
-const pg = require('pg');
-const connection_string = process.env.DATABASE_URL;
-const client = new pg.Client(connection_string);
-
 const express = require('express');
 const app = express();
 const ejs = require('ejs');
-const Promise = require('bluebird');
 const moment = require('moment');
 
+// Database 
+const connection_string = process.env.DATABASE_URL;
+const promise = require('bluebird');
+const pgp = require('pg-promise')({ promiseLib: promise });
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -17,11 +16,55 @@ app.listen(80, () => {
 });
 
 app.get('/', (req, res, next) => {
-	res.render('pages/home');
+	let result_object = [];
+	let db = pgp(connection_string);
+
+	db.any('select * from meals', [true])
+		.then(data => {
+			res.render('pages/home', {
+				meals: data
+			});
+		})
+		.catch(error => {
+			console.log('ERROR:', error);
+		})
+		.finally(db.$pool.end);
 });
 
 app.get('/add-meal', (req, res, next) => {
-	res.render('pages/add-a-meal');
+	res.render('pages/add-meal');
+});
+
+app.get('/api/meals', function(req, res) {
+	let result_object = [];
+	let db = pgp(connection_string);
+
+	db.any('select * from meals', [true])
+		.then(data => {
+			res.json({ status: 'success', data });
+		})
+		.catch(error => {
+			console.log('ERROR:', error);
+		})
+		.finally(db.$pool.end);
+});
+
+app.post('/api/meals', function(req, res) {
+	// create a todo, information comes from AJAX request from Angular
+	// Todo.create({
+	// text : req.body.text,
+	// done : false
+	// }, function(err, todo) {
+	// if (err)
+	// res.send(err);
+
+	// // get and return all the todos after you create another
+	// Todo.find(function(err, todos) {
+	// if (err)
+	// res.send(err)
+	// res.json(todos);
+	// });
+	// });
 });
 
 

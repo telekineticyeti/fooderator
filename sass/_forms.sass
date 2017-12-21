@@ -1,0 +1,292 @@
+%label_text
+	font-size: 16px
+	font-weight: 500
+	color: $blue
+	text-align: left
+	em
+		color: $blue
+		font-style: normal
+
+%input_text
+	font-size: 24px
+	font-weight: 300
+	color: black
+	+breakpoint($tablet)
+		font-size: 26px
+
+%input_style
+	+NoAppearance
+	border: 1px solid #ddd
+	background: white
+	display: block
+	width: 100%
+	padding: 5px 10px
+	outline: 0
+	+breakpoint($tablet)
+		padding: 2px 10px
+
+
+.form_wrapper
+	margin-top: 40px
+	margin-bottom: 40px
+
+.app_form
+	label
+		@extend %label_text
+		display: block
+		margin: 0 0 5px
+		opacity: 1
+		transition: 400ms
+		&.reveal
+			opacity: 1
+		&.hide
+			opacity: 0
+
+	.input_group
+		+ClearFix
+		margin-bottom: 15px
+		&.more_space_above
+			margin-top: 30px
+		
+		&.expand
+			display: none
+			// height: 0
+			// opacity: 0
+			// overflow: hidden
+
+	.submit_group
+		margin-top: 30px
+		text-align: right
+		+ClearFix
+
+	.dual_input
+		+ClearFix
+		margin-bottom: 0
+		> div
+			margin-bottom: 15px
+			+breakpoint($tablet)
+				margin-bottom: 0
+		+breakpoint($tablet)
+			margin-bottom: 15px
+			> div
+				box-sizing: border-box
+				width: 50%
+				float: left
+				margin-bottom: 0
+			.column_left
+				padding-right: 15px
+			.column_right
+				padding-left: 15px
+
+	input[type=text], input[type=tel], input[type=email]
+		@extend %input_text
+		@extend %input_style
+
+	.selectbox_wrapper
+		position: relative
+		overflow: hidden
+		@extend %input_style
+		cursor: pointer
+		padding: 0
+		&:hover, &:focus
+			+breakpoint($desktop)
+				&:after
+					opacity: 0.5
+		select
+			-webkit-appearance: none
+			@extend %input_text
+			border: 0
+			background: none
+			background: white
+			border-radius: 0
+			display: block
+			width: 100%
+			padding: 12px 0
+			outline: 0
+			margin-left: 10px
+			cursor: pointer
+			&::-ms-expand
+				display: none
+			+breakpoint($tablet)
+				padding: 5px
+
+		option
+			color: #ccc
+
+		option[value="-"]
+			color: #ccc
+			+NoAppearance
+
+		&:after
+			content: ''
+			position: absolute
+			width: 30px
+			height: 30px
+			right: 10px
+			top: 50%
+			transform: (translateY(-50%))
+			transition: opacity 300ms
+			pointer-events: none
+			background: url('/images/drop-down-arrow.svg') center center no-repeat
+				size: contain
+
+	textarea
+		@extend %input_text
+		@extend %input_style
+		padding: 5px 10px
+		width: 100%
+
+	.file_upload_group
+		width: 100%
+		overflow: hidden
+		.upload_wrapper
+			position: relative
+			+dbg
+		#file_upload
+			height: 1px
+			overflow: hidden
+			font-size: 1px
+		#filepath
+			@extend %input_style
+			@extend %input_text
+		#upload_btn, #clear_file
+			+breakpoint($tablet)
+				font-size: 19px
+				padding-top: 8px
+				padding-bottom: 8px
+			+breakpoint($desktop)
+				font-size: 20px
+			+breakpoint($superdesktop)
+				font-size: 17px
+				padding-top: 10px
+				padding-bottom: 10px
+		.buttons
+			margin-top: 10px
+			+breakpoint($tablet)
+				margin-top: 0
+		.instructions
+			font-size: 12px
+			text-align: left
+			color: rgba(black, .5)
+			margin-bottom: 10px
+
+	// input[type="submit"]
+	// 	display: inline-block
+	// 	margin: 0
+	// 	padding: 8px 24px
+	// 	border-radius: 35px
+	// 	border: 1px solid $grey
+	// 	background: white
+	// 	outline: 0
+	// 	+transition(100ms)
+	// 	@extend %input_text
+	// 	text-transform: uppercase
+	// 	color: $grey
+	// 	font-size: 22px
+		
+	// 	&:hover, &:focus
+	// 		background: $grey
+	// 		color: white
+	// 		border-color: white
+
+	// &.processing
+	// 	.submit_group .wish_button
+	// 		opacity: .4
+	// 		pointer-events: none
+
+	.checkbox_group
+		margin-top: 15px
+	.input_type_checkbox
+		input[type=checkbox]
+			display: none
+			+ label
+				display: block
+				opacity: 1
+				position: relative
+				text-align: left
+				cursor: pointer
+				margin-bottom: 20px
+				clear: left
+				&:before
+					content: ""
+					position: relative
+					z-index: 1
+					display: inline-block
+					width: 36px
+					height: 36px
+					margin: 0 15px 0 0
+					background: white
+					vertical-align: middle
+					border: 1px solid #ddd
+				span
+					display: inline-table
+					width: calc(100% - 60px)
+
+		input:checked + label:after
+			content: "✓"
+			display: inline-block
+			vertical-align: middle
+			position: absolute
+			z-index: 5
+			left: 5px
+			top: 55%
+			transform: (translateY(-50%))
+			width: 36px
+			height: 36px
+			color: $blue
+			font-size: 36px
+			line-height: 36px
+
+	// 
+	// Error Handling
+	//
+	.form_errors
+		background: $blue
+		padding: 30px
+		color: white
+		list-style-position: inside
+		border-radius: 10px
+		margin-bottom: 30px
+		overflow: hidden
+		display: none
+		ul
+			+ListReset
+		p
+			color: white
+	
+	.input_error
+		input[type=text], input[type=tel], input[type=email]
+			border-color: $blue
+		.error
+			position: relative
+			top: 0
+			padding: 10px
+			background: $blue
+			color: white
+			clear: both
+		
+		&.dual_input
+			.error
+				width: 100%
+	
+	.recaptcha
+		margin: 10px 0 0
+		display: inline-block
+
+
+	.radio_wrap
+		margin: 20px 0
+		cursor: pointer
+		
+		img
+			max-height: 160px
+			display: inline-block
+			margin-bottom: 20px
+		input
+			margin-right: 5px
+			
+
+.form_success
+	// height: 0
+	overflow: hidden
+	display: none

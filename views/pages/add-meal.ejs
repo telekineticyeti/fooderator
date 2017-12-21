@@ -1,0 +1,25 @@
+<% include ../partials/header %>
+<% include ../partials/main-navigation %>
+
+<main>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				Add a new meal
+			</div>
+			<div class="form_wrapper col-sm-8 col-sm-offset-2">
+				<form action="/team_name_url/" method="post" class="app_form">
+					<div class="input_group">
+						<label for="team_name">Enter name of meal: </label>
+						<input id="team_name" type="text" name="name_field">
+					</div>
+					<div class="submit_group">
+						<input type="submit" value="go" class="app_button">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</main>
+
+<% include ../partials/footer %>
