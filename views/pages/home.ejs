@@ -1,5 +1,48 @@
 <% include ../partials/header %>
 <% include ../partials/main-navigation %>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+<script>
+	$(function() {
+		$(document).on('click', '.mealbox', function() {
+			let post_data = {
+				id: $(this).data('id'),
+				pending: ($(this).data('pending')) ? false : true
+			}
+
+			$.ajax({
+				url: "/api/meals/" + post_data.id,
+				type: "POST",
+				data: JSON.stringify(post_data),
+				dataType: 'json',
+				contentType: 'application/json; charset=utf-8',
+				success: function(data) {
+					console.log(data);
+					// form errors
+					console.log('sdf');
+					if (data.status === "success") {
+						// Acquire values of the first errornous input
+						// var error_wrapper = $('[name="' + data.errors[0][0] + '"]').parents('.input_group').addClass('input_error'),
+						// 	error_text = data.errors[0][1];
+
+						// error_wrapper.append('<div for="' + data.errors[0][0] + '" class="error">' + error_text + '</div>');
+
+						// // // Get offset of the first error and scorll the viewport to it
+						// var scrollpos = error_wrapper.offset().top - 200;
+						// $('body,html').animate({scrollTop: scrollpos}, 200);
+
+					} else {
+						// $('.wish_form_intro').slideUp(400);
+						// $(form).slideUp(400, function() {
+						// 	$('.form_success').slideDown(400);
+						// });
+					}
+
+				}
+			});
+
+		});
+	});
+</script>
 
 <main>
 	<div class="container">
@@ -7,7 +50,7 @@
 			<div class="col-sm-12">
 
 				<% meals.forEach(meal_item => { %>
-				<div class="col-sm-3 mealbox">
+				<div class="col-sm-3 mealbox" <%if (meal_item.pending === true) {%>data-pending="true"<%}%> data-id="<%= meal_item.id %>">
 					<div class="inner">
 						<h3><%= meal_item.name %></h3>
 						<p class="description">Description of the thing</p>

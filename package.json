@@ -26,9 +26,11 @@
   "homepage": "https://github.com/telekineticyeti/fooderator#readme",
   "dependencies": {
     "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
     "bootstrap-sass": "^3.3.7",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
+    "method-override": "^2.3.10",
     "moment": "^2.20.1",
     "pg": "^7.4.0",
     "pg-promise": "^7.3.2"
@@ -40,6 +42,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^3.1.0",
     "gulp-uglify": "^3.0.0",
+    "morgan": "^1.9.0",
     "node-bourbon": "^4.2.8"
   }
 }

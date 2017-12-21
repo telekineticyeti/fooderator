@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser')
+const morgan = require('morgan');
+const methodOverride = require('method-override');
 const ejs = require('ejs');
 const moment = require('moment');
 
@@ -10,6 +13,11 @@ const pgp = require('pg-promise')({ promiseLib: promise });
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride());
+
 
 app.listen(80, () => {
 	console.log('Listening on http://localhost:8010');
@@ -65,6 +73,30 @@ app.post('/api/meals', function(req, res) {
 	// res.json(todos);
 	// });
 	// });
+});
+
+/**
+ * Update a meal record
+ */
+app.post('/api/meals/:id', function(req, res) {
+
+	let db = pgp(connection_string);
+	db.any('update meals SET pending = $1 WHERE id = $2', [req.body.pending, req.params.id])
+		.then(data => {
+			// db.any('select $1 from meals', [req.params.id])
+			// 	.then(updated_data => {
+			// 		res.json({ status: 'success', updated_data });
+			// 		console.log('update:', updated_data);
+			// 	})
+			// 	.catch(error => {
+			// 		console.log('ERROR:', error);
+			// 	});
+			res.json({ status: 'success', data });
+		})
+		.catch(error => {
+			console.log('ERROR:', error);
+		})
+		.finally(db.$pool.end);
 });
 
 

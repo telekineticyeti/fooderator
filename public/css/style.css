@@ -3086,17 +3086,17 @@ body {
   .app_button:hover, .app_button:focus {
     background: #9E90A2; }
 
-.mealbox .inner {
-  padding: 20px;
-  background: white;
-  border-radius: 5px; }
-
-.mealbox h3 {
-  font-size: 16px;
-  color: #828489;
-  margin: 0; }
-
-.mealbox p {
-  font-size: 12px;
-  margin: 5px 0 0;
-  color: #9E90A2; }
+.mealbox {
+  cursor: pointer; }
+  .mealbox .inner {
+    padding: 20px;
+    background: white;
+    border-radius: 5px; }
+  .mealbox h3 {
+    font-size: 16px;
+    color: #828489;
+    margin: 0; }
+  .mealbox p {
+    font-size: 12px;
+    margin: 5px 0 0;
+    color: #9E90A2; }
