@@ -57,22 +57,22 @@ app.get('/api/meals', function(req, res) {
 		.finally(db.$pool.end);
 });
 
-app.post('/api/meals', function(req, res) {
-	// create a todo, information comes from AJAX request from Angular
-	// Todo.create({
-	// text : req.body.text,
-	// done : false
-	// }, function(err, todo) {
-	// if (err)
-	// res.send(err);
+/**
+ * Add a new meal to the database using PUT method
+ */
+app.put('/api/meals', function(req, res) {
+	let name = req.body.name,
+		description = req.body.description;
 
-	// // get and return all the todos after you create another
-	// Todo.find(function(err, todos) {
-	// if (err)
-	// res.send(err)
-	// res.json(todos);
-	// });
-	// });
+	let db = pgp(connection_string);
+	db.any('INSERT INTO meals(name, description) values($1, $2)', [name, description])
+		.then(data => {
+			res.json({ message: name + ' was added to your meal list!' });
+		})
+		.catch(error => {
+			res.json({ status: 500, statusText: error });
+		})
+		.finally(db.$pool.end);
 });
 
 /**

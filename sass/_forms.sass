@@ -1,7 +1,7 @@
 %label_text
 	font-size: 16px
 	font-weight: 500
-	color: $blue
+	color: $blaqua
 	text-align: left
 	em
 		color: $blue
@@ -31,6 +31,8 @@
 	margin-bottom: 40px
 
 .app_form
+	position: relative
+	transition: 400ms
 	label
 		@extend %label_text
 		display: block
@@ -41,6 +43,19 @@
 			opacity: 1
 		&.hide
 			opacity: 0
+
+	&.processing
+		opacity: .5
+		pointer-events: none
+		&:after
+			content: ''
+			position: absolute
+			left: 50%
+			top: 50%
+			transform: translate(-50%, -70%)
+			width: 90px
+			height: 90px
+			background: url('/images/loading.svg')
 
 	.input_group
 		+ClearFix
@@ -240,19 +255,18 @@
 	// 
 	// Error Handling
 	//
-	.form_errors
-		background: $blue
+	.form_feedback
+		margin-top: 20px
+		margin-bottom: 20px
 		padding: 30px
-		color: white
-		list-style-position: inside
-		border-radius: 10px
-		margin-bottom: 30px
-		overflow: hidden
-		display: none
-		ul
-			+ListReset
-		p
-			color: white
+		outline: 1px dashed rgba(black, .1)
+		text-align: center
+		p.form_error
+			color: darken(red, 10%)
+			border-radius: 10px
+			margin-bottom: 20px
+			margin-top: 20px
+			overflow: hidden
 	
 	.input_error
 		input[type=text], input[type=tel], input[type=email]

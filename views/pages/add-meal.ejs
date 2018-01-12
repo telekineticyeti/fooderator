@@ -1,6 +1,5 @@
 <% include ../partials/header %>
 <% include ../partials/main-navigation %>
-
 <main>
 	<div class="container">
 		<div class="row">
@@ -8,13 +7,22 @@
 				Add a new meal
 			</div>
 			<div class="form_wrapper col-sm-8 col-sm-offset-2">
-				<form action="/team_name_url/" method="post" class="app_form">
+				<form ng-submit="submit()" ng-controller="add_meal" class="app_form form_add_meal">
 					<div class="input_group">
-						<label for="team_name">Enter name of meal: </label>
-						<input id="team_name" type="text" name="name_field">
+						<label for="meal_name">Meal name: </label>
+						<input name="meal_name" type="text" ng-model="meal_name">
+					</div>
+					<div class="input_group">
+						<label for="meal_description">Meal description: </label>
+						<input name="meal_description" type="text" ng-model="meal_description">
 					</div>
 					<div class="submit_group">
-						<input type="submit" value="go" class="app_button">
+						<input type="submit" id="submit" value="go" class="app_button">
+					</div>
+
+					<div class="form_feedback" ng-if="form_success || form_error">
+						<p class="form_error" ng-if="">There was an error adding your meal: {{form_error}}</p>
+						<p class="form_success" ng-if="form_success">{{form_success}}</p>
 					</div>
 				</form>
 			</div>
