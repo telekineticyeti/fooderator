@@ -4,7 +4,17 @@ var app = angular.module('fooderator', ['ngMaterial']).config(function($mdThemin
 	.accentPalette('orange');
 });
 
-app.controller('add_meal', function($scope, $http) {
+app.controller('add_meal', function($scope, $http, $mdToast) {
+
+	$scope.snackbar = function(message) {
+		$mdToast.show(
+			$mdToast.simple()
+				.textContent(message)
+				.position('bottom right')
+				.hideDelay(3000)
+		)
+	};
+
 	$scope.form_error = '';
 	$scope.submit = function() {
 		if ($scope.meal_name) {
@@ -15,28 +25,21 @@ app.controller('add_meal', function($scope, $http) {
 
 			var form = angular.element(document.querySelector('.form_add_meal'));
 
-			form.addClass('processing');
-
 			$http.put('/api/meals', JSON.stringify(data))
 				.then(function(response) {
 					if (response.status === 200)  {
-						// $scope.form_success = '' + response.data.message;
-						let snackBarRef = snackBar.open(response.data.message);
+						$scope.snackbar(response.data.message);
 						console.log(response.data.message);
+						$scope.meal_name = null;
+						$scope.meal_description = null;
 					} else {
-						// $scope.form_error = response.statusText;
-						let snackBarRef = snackBar.open(response.statusText);
+						$scope.snackbar(response.statusText);
 					}
-					form.removeClass('processing');
-
-				}, function (response) {
-					// $scope.form_error = response.statusText;
-					let snackBarRef = snackBar.open(response.statusText);
 				});
 
 		} else {
 			$scope.form_error = 'Please enter the meal name';
-			console.log($scope.meal_description_label);
+			$scope.snackbar('Please enter the meal name');
 		}
 	};
 });
