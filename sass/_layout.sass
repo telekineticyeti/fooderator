@@ -2,50 +2,12 @@ body
 	background: $metal
 	color: $blaqua
 
-#main_navigation
-	margin-top: 40px
-	margin-bottom: 40px
-	ul
-		+ListReset
-		text-align: right
-		
-		li
-			display: inline-block
-		button
-			+NoAppearance
 
-.app_button
-	display: inline-block
-	background: $blaqua
-	color: white
-	cursor: pointer
-	border-radius: 3px
-	border: none
-	padding: 10px 16px
-	font-family: Helvetica, sans-serif
-	font-size: 14px
-	text-transform: uppercase
-	font-weight: normal
-	text-decoration: none
-	outline: 0
-	+transition(300ms)
-	
-	&:hover, &:focus
-		background: $warmgrey
-
-
-.mealbox
-	cursor: pointer
-	.inner
-		padding: 20px
-		background: white
-		border-radius: 5px
-	
-	h3
-		font-size: 16px
-		color: $grey
-		margin: 0
-	p
-		font-size: 12px
-		margin: 5px 0 0
-		color: $warmgrey
+#page_add_meal
+	md-card
+		max-width: 800px
+		margin: 30px auto
+		form
+			padding: 8px
+		md-input-container, md-select
+			width: 100%

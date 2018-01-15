@@ -1,47 +1,5 @@
 <% include ../partials/header %>
 <% include ../partials/main-navigation %>
-<script>
-	$(function() {
-		$(document).on('click', '.mealbox', function() {
-			let post_data = {
-				id: $(this).data('id'),
-				pending: ($(this).data('pending')) ? false : true
-			}
-
-			$.ajax({
-				url: "/api/meals/" + post_data.id,
-				type: "POST",
-				data: JSON.stringify(post_data),
-				dataType: 'json',
-				contentType: 'application/json; charset=utf-8',
-				success: function(data) {
-					console.log(data);
-					// form errors
-					console.log('sdf');
-					if (data.status === "success") {
-						// Acquire values of the first errornous input
-						// var error_wrapper = $('[name="' + data.errors[0][0] + '"]').parents('.input_group').addClass('input_error'),
-						// 	error_text = data.errors[0][1];
-
-						// error_wrapper.append('<div for="' + data.errors[0][0] + '" class="error">' + error_text + '</div>');
-
-						// // // Get offset of the first error and scorll the viewport to it
-						// var scrollpos = error_wrapper.offset().top - 200;
-						// $('body,html').animate({scrollTop: scrollpos}, 200);
-
-					} else {
-						// $('.wish_form_intro').slideUp(400);
-						// $(form).slideUp(400, function() {
-						// 	$('.form_success').slideDown(400);
-						// });
-					}
-
-				}
-			});
-
-		});
-	});
-</script>
 
 <main>
 	<div class="container">

@@ -1,4 +1,8 @@
-var app = angular.module('app', []);
+var app = angular.module('fooderator', ['ngMaterial']).config(function($mdThemingProvider) {
+	$mdThemingProvider.theme('default')
+	.primaryPalette('green')
+	.accentPalette('orange');
+});
 
 app.controller('add_meal', function($scope, $http) {
 	$scope.form_error = '';
@@ -16,19 +20,23 @@ app.controller('add_meal', function($scope, $http) {
 			$http.put('/api/meals', JSON.stringify(data))
 				.then(function(response) {
 					if (response.status === 200)  {
-						$scope.form_success = '' + response.data.message;
+						// $scope.form_success = '' + response.data.message;
+						let snackBarRef = snackBar.open(response.data.message);
 						console.log(response.data.message);
 					} else {
-						$scope.form_error = response.statusText;
+						// $scope.form_error = response.statusText;
+						let snackBarRef = snackBar.open(response.statusText);
 					}
 					form.removeClass('processing');
 
 				}, function (response) {
-					$scope.form_error = response.statusText;
+					// $scope.form_error = response.statusText;
+					let snackBarRef = snackBar.open(response.statusText);
 				});
 
 		} else {
 			$scope.form_error = 'Please enter the meal name';
+			console.log($scope.meal_description_label);
 		}
 	};
 });
