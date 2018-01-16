@@ -5,7 +5,7 @@
 
 <md-card>
 	<md-card-header>
-		<md-card-title>Add a new meal</md-card-title>
+		<md-card-title><h3>Add a new meal</h3></md-card-title>
 	</md-card-header>
 	<md-card-content>
 		<form ng-submit="submit()" ng-controller="add_meal" class="app_form form_add_meal">
@@ -18,16 +18,12 @@
 				<input mdInput placeholder="Description (optional)" ng-model="meal_description">
 			</md-input-container>
 
-			<md-card-actions>
-				<md-button class="md-raised" type="submit">Add meal</md-button>
-				<md-button href="/">Cancel</md-button>
-			</md-card-actions>
 
-<!-- 			<div class="form_feedback" ng-if="form_success || form_error">
-				<p class="form_error" ng-if="">There was an error adding your meal: {{form_error}}</p>
-				<p class="form_success" ng-if="form_success">{{form_success}}</p>
-			</div> -->
 		</form>
+		<md-card-actions>
+			<md-button class="md-raised" type="submit">Add meal</md-button>
+			<md-button href="/">Cancel</md-button>
+		</md-card-actions>
 	</md-card-content>
 </md-card>
 

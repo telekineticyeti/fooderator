@@ -11,10 +11,27 @@ body {
   background: #B6C2D9;
   color: #272932; }
 
+#list_meals md-card {
+  max-width: 864px;
+  margin: 30px auto; }
+  #list_meals md-card form {
+    padding: 8px; }
+  #list_meals md-card md-input-container, #list_meals md-card md-select {
+    width: 100%; }
+
 #page_add_meal md-card {
-  max-width: 800px;
+  max-width: 864px;
   margin: 30px auto; }
   #page_add_meal md-card form {
     padding: 8px; }
   #page_add_meal md-card md-input-container, #page_add_meal md-card md-select {
     width: 100%; }
+
+md-grid-tile {
+  -webkit-transition: all 400ms ease-out 50ms;
+  transition: all 400ms ease-out 50ms; }
+  md-grid-tile .tile_inner {
+    padding: 8px; }
+
+.meal_listbox {
+  max-width: 864px; }

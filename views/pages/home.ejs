@@ -1,23 +1,28 @@
+<% var page_name= 'list_meals'; %>
 <% include ../partials/header %>
 <% include ../partials/main-navigation %>
 
-<main>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-
-				<% meals.forEach(meal_item => { %>
-				<div class="col-sm-3 mealbox" <%if (meal_item.pending === true) {%>data-pending="true"<%}%> data-id="<%= meal_item.id %>">
-					<div class="inner">
-						<h3><%= meal_item.name %></h3>
-						<p class="description">Description of the thing</p>
-					</div>
-				</div>
-				<% }); %>
-
-			</div>
+<md-card ng-controller="view_meals" >
+	<md-card-header><md-card-title><h3>Your Meal List</h3></md-card-title></md-card-header>
+	<md-card-content>
+		<div class="meal_listbox" ng-repeat="meal in meals | orderBy: 'name'">
+			<md-list-item>
+				<md-tooltip md-direction="bottom" md-delay="1000">{{ meal.description }}</md-tooltip>
+				<md-checkbox ng-model="meal.pending" ng-change="meal_click(meal.id, meal.pending, meal.name)"></md-checkbox>
+				<p>{{ meal.name }}</p>
+				<md-icon class="md-secondary" aria-label="edit" md-svg-icon="/images/ic_edit_black_24px.svg" ng-click="meal_edit(meal.id)">edit</md-icon>
+			</md-list-item>
 		</div>
-	</div>
-</main>
+	</md-card-content>
+<!-- 	<md-card-actions>
+		<md-input-container>
+			<label>Meals to show</label>
+			<md-select ng-model="meals_to_show" placeholder="Meals to show">
+				<md-option ng-value="all">All meals</md-option>
+				<md-option ng-value="pending">Pending meals</md-option>
+			</md-select>
+		</md-input-container>
+	</md-card-actions> -->
+</md-card>
 
 <% include ../partials/footer %>
