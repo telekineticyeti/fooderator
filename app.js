@@ -56,6 +56,7 @@ app.get('/api/meals', function(req, res) {
 		.finally(db.$pool.end);
 });
 
+
 /**
  * Add a new meal to the database using PUT method
  */
@@ -74,17 +75,48 @@ app.put('/api/meals', function(req, res) {
 		.finally(db.$pool.end);
 });
 
+
 /**
- * Update a meal record
+ * Update a meal record's information
  */
 app.post('/api/meals/:id', function(req, res) {
 	let db = pgp(connection_string);
-	db.any('update meals SET pending = $1 WHERE id = $2', [req.body.pending, req.params.id])
-		.then(data => {
-			res.json({ status: 'success', data });
-		})
-		.catch(error => {
-			console.log('ERROR:', error);
-		})
-		.finally(db.$pool.end);
+
+	const id = req.params.id;
+	const updated = moment().format('YYYY-MM-DD HH:mm:ss');
+
+	// Queue up Database transactions
+	db.tx(t => {
+		var transactions = [];
+
+		if (typeof(req.body.pending) !== "undefined" && typeof(req.body.pending) === "boolean") {
+			console.log(req.body.pending);
+			var meal_pending = t.none('update meals SET pending = $1 WHERE id = $2', [req.body.pending, id]);
+			transactions.push(meal_pending);
+		}
+
+		if (req.body.name) {
+			var meal_name = t.none('update meals SET name = $1 WHERE id = $2', [req.body.name, id]);
+			transactions.push(meal_name);
+		}
+
+		if (req.body.description) {
+			var meal_description = t.none('update meals SET description = $1 WHERE id = $2', [req.body.description, id]);
+			transactions.push(meal_description);
+		}
+
+		// Set row updated date/time
+		var meal_updated = t.none('update meals SET updated = $1 WHERE id = $2', [updated, id]);
+		transactions.push(meal_updated);
+
+		// Resolve all queries
+		return t.batch(transactions);
+	})
+	.then(data => {
+		res.json({ status: 'success', data });
+	})
+	.catch(error => {
+		console.log('ERROR:', error);
+	})
+	.finally(db.$pool.end);
 });

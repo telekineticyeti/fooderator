@@ -1,0 +1,29 @@
+<md-dialog aria-label="Editing {{ dialog_data.name }}">
+	<form class="dialog_form" ng-cloak>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{ dialog_data.name }}</h2>
+				<span flex></span>
+			</div>
+		</md-toolbar>
+
+		<md-dialog-content>
+			<div class="md-dialog-content">
+				<md-input-container>
+					<input mdInput placeholder="Meal name" ng-model="dialog_data.name">
+				</md-input-container>
+
+				<md-input-container>
+					<textarea mdInput placeholder="Description (optional)" ng-model="dialog_data.description"></textarea>
+				</md-input-container>
+			</div>
+		</md-dialog-content>
+
+		<md-dialog-actions layout="row">
+			<md-button ng-click="delete(dialog_data.id)">Delete</md-button>
+			<span flex></span>
+			<md-button ng-click="cancel()">Cancel</md-button>
+			<md-button ng-click="save(dialog_data.id)">Save</md-button>
+		</md-dialog-actions>
+	</form>
+</md-dialog>

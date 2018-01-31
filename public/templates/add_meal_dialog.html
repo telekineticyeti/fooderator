@@ -1,0 +1,27 @@
+<md-dialog aria-label="Add a new meal">
+	<form class="dialog_form" ng-cloak>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>Add a new meal</h2>
+				<span flex></span>
+			</div>
+		</md-toolbar>
+
+		<md-dialog-content>
+			<div class="md-dialog-content">
+				<md-input-container>
+					<input mdInput placeholder="Meal name" ng-model="meal_name">
+				</md-input-container>
+
+				<md-input-container>
+					<input mdInput placeholder="Description (optional)" ng-model="meal_description">
+				</md-input-container>
+			</div>
+		</md-dialog-content>
+
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()">Cancel</md-button>
+			<md-button ng-click="save()">Add Meal</md-button>
+		</md-dialog-actions>
+	</form>
+</md-dialog>

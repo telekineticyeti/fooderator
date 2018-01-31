@@ -4,15 +4,33 @@ var app = angular.module('fooderator', ['ngMaterial']).config(function($mdThemin
 	.accentPalette('orange');
 });
 
-app.controller('view_meals', function($scope, $http, $mdToast) {
+app.controller('view_meals', function($scope, $http, $mdToast, $mdDialog, $log) {
 	$scope.snackbar = function(message) {
 		$mdToast.show(
 			$mdToast.simple().textContent(message).position('bottom right').hideDelay(3000)
 		)
 	};
 
-	$scope.meal_click = function(id, status, name) {
 
+	/**
+	 * Load the list of meals to be displayed
+	 */
+	$scope.load_meal_list = function () {
+		$http.get('/api/meals')
+			.then(response => {
+				if (response.status === 200)  {
+					$scope.meals = response.data.data;
+				} else {
+					return false
+				}
+			});
+	};
+
+
+	/**
+	 * Handle meal click event (set meal pending status)
+	 */
+	$scope.meal_click = function(id, status, name) {
 		let update_data = JSON.stringify({
 			pending: status
 		});
@@ -25,51 +43,92 @@ app.controller('view_meals', function($scope, $http, $mdToast) {
 			});
 	}
 
-	$scope.meal_edit = function(item) {
-		console.log('EDIT ' + item);
-	}
 
-	$http.get('/api/meals')
-		.then(response => {
-			if (response.status === 200)  {
-				$scope.meals = response.data.data;
-			} else {
-				$scope.snackbar('There was an error fetching meal data: ' + response.statusText);
-			}
+	/**
+	 * Initiate add meal dialog
+	 */
+	$scope.meal_add = function(id, name, description) {
+		$mdDialog.show({
+			controller: add_meal_dialog_controller,
+			templateUrl: '/templates/add_meal_dialog.html',
+			parent: angular.element(document.body),
+			clickOutsideToClose: true,
+			fullscreen: $scope.customFullscreen
+		})
+		.then(function(data) {
+			$scope.snackbar('Meal successfully added');
+			$scope.load_meal_list();
 		});
 
+		function add_meal_dialog_controller($scope, $mdDialog, $log) {
+			$scope.cancel = function() {
+				$mdDialog.cancel();
+			};
+			$scope.save = function(answer) {
+				if ($scope.meal_name) {
+					var data = JSON.stringify({
+						name: $scope.meal_name,
+						description: $scope.meal_description
+					});
+					$http.put('/api/meals', data)
+						.then(response => {
+							$mdDialog.hide();
+						}).catch(error => {
+							$log.log(error)
+						});
+				}
+			};
+		};
+	}
 
-});
 
+	/**
+	 * Initiate meal editing dialog
+	 */
+	$scope.meal_edit = function(id, name, description) {
+		var meal_data = {
+			id: id,
+			name: name,
+			description: description
+		};
 
-app.controller('add_meal', function($scope, $http, $mdToast) {
+		$mdDialog.show({
+			locals: { data: meal_data },
+			controller: edit_meal_dialog_controller,
+			templateUrl: '/templates/edit_meal_dialog.html',
+			parent: angular.element(document.body),
+			targetEvent: id,
+			clickOutsideToClose: true,
+			fullscreen: $scope.customFullscreen
+		})
+		.then(function(answer) {
+			$scope.snackbar('Meal successfully updated');
+			$scope.load_meal_list();
+		});
 
-	$scope.snackbar = function(message) {
-		$mdToast.show(
-			$mdToast.simple().textContent(message).position('bottom right').hideDelay(5000)
-		)
-	};
+		function edit_meal_dialog_controller($scope, $mdDialog, $log, data) {
+			$scope.dialog_data = data;
 
-	$scope.submit = function() {
-		if ($scope.meal_name) {
-			var data = {
-				name: $scope.meal_name,
-				description: $scope.meal_description
+			$scope.hide = function() {
+				$mdDialog.hide();
+			};
+			$scope.cancel = function() {
+				$mdDialog.cancel();
 			};
 
-			$http.put('/api/meals', JSON.stringify(data))
-				.then(function(response) {
-					if (response.status === 200)  {
-						$scope.meal_name = null;
-						$scope.meal_description = null;
-						$scope.snackbar(response.data.message);
-					} else {
-						$scope.snackbar('Error: ' + response.statusText);
-					}
+			$scope.save = function(answer) {
+				let update_data = JSON.stringify({
+					name: $scope.dialog_data.name,
+					description: $scope.dialog_data.description
 				});
 
-		} else {
-			$scope.snackbar('Please enter the meal name');
+				$http.post('/api/meals/' +  $scope.dialog_data.id, update_data)
+					.then(response => {
+						$mdDialog.hide();
+					}).catch(error => {
+						$log.log(error)
+					});
+			};
 		}
-	};
+	}
 });

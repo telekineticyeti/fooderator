@@ -11,6 +11,13 @@ body {
   background: #B6C2D9;
   color: #272932; }
 
+.dialog_form form {
+  padding: 8px; }
+
+.dialog_form md-input-container, .dialog_form md-select {
+  width: 100%;
+  margin: 8px 0 0; }
+
 #list_meals md-card {
   max-width: 864px;
   margin: 30px auto; }
