@@ -38,10 +38,6 @@ app.get('/', (req, res, next) => {
 		.finally(db.$pool.end);
 });
 
-app.get('/add-meal', (req, res, next) => {
-	res.render('pages/add-meal');
-});
-
 app.get('/api/meals', function(req, res) {
 	let result_object = [];
 	let db = pgp(connection_string);
@@ -119,4 +115,22 @@ app.post('/api/meals/:id', function(req, res) {
 		console.log('ERROR:', error);
 	})
 	.finally(db.$pool.end);
+});
+
+app.get('/ingredients', (req, res, next) => {
+	res.render('pages/ingredients');
+});
+
+app.get('/api/ingredients', function(req, res) {
+	let result_object = [];
+	let db = pgp(connection_string);
+
+	db.any('select * from ingredients', [true])
+		.then(data => {
+			res.json({ status: 'success', data });
+		})
+		.catch(error => {
+			console.log('ERROR:', error);
+		})
+		.finally(db.$pool.end);
 });

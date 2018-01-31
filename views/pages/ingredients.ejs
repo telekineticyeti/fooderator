@@ -1,0 +1,26 @@
+<% var page_name= 'ingredients'; %>
+<% include ../partials/header %>
+<% include ../partials/main-navigation %>
+
+<md-content class="md-padding" layout-xs="column" layout="row">
+	<div flex-xs flex-gt-xs="100" layout="column">
+		<!-- <md-card> -->
+		<md-card data-ng-init="load_ingredient_list()" ng-controller="ingredients">
+			<md-card-title-text>
+				<span class="md-headline">Ingredients</span>
+			</md-card-title-text>
+			<md-card-content>
+				<p>Add ingredients to the list below. These ingredients can be attached to meals that you create or edit on the <a href="/">meals page</a>.</p>
+
+				<md-chips ng-model="ingredients" md-transform-chip="ctrl.new_ingredient($chip)" name="ingredient.name" md-removable="ctrl.removable" placeholder="Add a new ingredient">
+					<md-chip-template>
+						<strong>{{$chip.name}}</strong>
+					</md-chip-template>
+				</md-chips>
+
+			</md-card-content>
+		</md-card>
+	</div>
+</md-content>
+
+<% include ../partials/footer %>

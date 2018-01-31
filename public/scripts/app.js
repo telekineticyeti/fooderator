@@ -4,7 +4,30 @@ var app = angular.module('fooderator', ['ngMaterial']).config(function($mdThemin
 	.accentPalette('orange');
 });
 
-app.controller('view_meals', function($scope, $http, $mdToast, $mdDialog, $log) {
+app.controller('ingredients', function($scope, $http, $mdToast, $mdDialog, $log) {
+	/**
+	 * Load the ingredient list
+	 */
+	$scope.load_ingredient_list = function () {
+		$http.get('/api/ingredients')
+			.then(response => {
+				if (response.status === 200)  {
+					$scope.ingredients = response.data.data;
+				} else {
+					return false
+				}
+			});
+			self.new_ingredient = function(chip) {
+				return {
+					name: chip,
+					type: 'unknown'
+				};
+			};
+	};
+});
+
+
+app.controller('meals', function($scope, $http, $mdToast, $mdDialog, $log) {
 	$scope.snackbar = function(message) {
 		$mdToast.show(
 			$mdToast.simple().textContent(message).position('bottom right').hideDelay(3000)
