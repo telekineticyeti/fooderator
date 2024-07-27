@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title></title>
-	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/angular-material.min.css">
-	<script src="/scripts/angular.js"></script>
-	<script src="/scripts/angular-animate.min.js"></script>
-	<script src="/scripts/angular-aria.min.js"></script>
-	<script src="/scripts/angular-messages.min.js"></script>
-	<script src="/scripts/angular-material.min.js"></script>
-	<script src="/scripts/app.js"></script>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/angular-material.min.css" />
+    <script src="/scripts/angular.js"></script>
+    <script src="/scripts/angular-animate.min.js"></script>
+    <script src="/scripts/angular-aria.min.js"></script>
+    <script src="/scripts/angular-messages.min.js"></script>
+    <script src="/scripts/angular-material.min.js"></script>
+    <script src="/scripts/app.js"></script>
+  </head>
 
-<%
-	if (typeof page_name === 'undefined') {
-		page_name = 'unnamed';
-	}
-%>
+  <% if (typeof page_name === 'undefined') { page_name = 'unnamed'; } %>
 
-<body id="page_<%= page_name %>" ng-app="fooderator" ng-cloak ng-controller="meals" >
+  <body
+    id="page_<%= page_name %>"
+    ng-app="fooderator"
+    ng-cloak
+    ng-controller="meals"
+  ></body>
+</html>
